@@ -1,5 +1,7 @@
 var playing = false;
 var score;
+var score_emoji;
+var emoji_comment;
 var trialsleft;
 var step;//for random steps
 var action;//for settime interval
@@ -10,7 +12,7 @@ var emojiType;
 const MAXSCORE = 999999;
 const EMOJINUM = 16;
 var BOMBTYPE = 15;
-var emojiScore = [10, 10, 5, 5, 1, 1, 1, 1 ,1 ,1 ,1 ,1 ,1 ,1 ,1, 0] 
+var emojiScore = [100, 100, 50, 50, 10, 10, 10, 10 ,10 ,10 ,10 ,10 ,10 ,10 ,10, 0] 
 var juiceColors = ["images/splash-brown.png", "images/splash-red.png", "images/splash-red.png","images/splash-red.png","images/splash-yellow.png",
                    "images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png",
                    "images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png","images/splash-yellow.png"];
@@ -43,7 +45,7 @@ $(function(){
             $('#gameOver').hide();
     
             //change button to reset game
-            $('#startReset').html('Reset Game')
+            $('#startReset').html('RESET')
     
             //start action
             startAction();
@@ -69,7 +71,8 @@ $(function(){
             var juiceColor = juiceColors[emojiType]; // 获取juice颜色
             
             showJuice(juiceColor);
-            //send new emoji
+            
+            //send a new emoji
             setTimeout(startAction,500);
         }
         else{
@@ -79,9 +82,30 @@ $(function(){
             $("#score").hide();
             $('#startreset').html('Start Game');
             $('#gameOver').show();
-            $('#gameOver').html('<p>Game Over!</p><p>Your score is '+ score + '</p>');
-            $('#trialsleft').hide();
-            stopAction();//stops Action
+            if(score < 100){
+                score_emoji = "🙄"
+                emoji_comment = "Are You SLEEPING?"
+            }
+            else if(score < 200){
+                score_emoji = "🤣"
+                emoji_comment = "Not Bad, Huh?"
+
+            }
+            else if(score < 500){
+                score_emoji = "😋"
+                emoji_comment = "Well Done!"
+
+            }
+            else {
+                score_emoji = "😍"
+                emoji_comment = "Legendary Emoji Ninja!"
+            }
+            $('#gameOver').html('<img src="images/GameOver.png" width="100%"><p>' + score_emoji +' '+ score + '<br/>' + emoji_comment + '</p>')
+            
+            $('#trialsleft').hide()
+
+            // End game
+            stopAction();
         }
     });
      
@@ -142,48 +166,89 @@ $(function(){
 
           //check if the emoji is too low
           if($('#emoji1').position().top > $('#emojicontainer').height()-50){
-              //yes it is low
-              // check trails left
-              if(trialsleft > 1){
-                  //generate a emoji
-                  $("#emoji1").show();
-                  //choose random emoji
-                  chooseRandom();
-                  //random position
-                  $('#emoji1').css({
-                      'left': Math.round(550 * Math.random()),
-                      'top': -50
-                  });
-                  //generate random step
-                  step= 1 + Math.round(5 * Math.random());//change steps
-                  
-                  //reduce trials by one
-                  trialsleft--;
-                  //populate trails left box by one
-                  addhearts();
-
+                //yes it is low
+                // check trails left
+                if(trialsleft > 1 || (trialsleft == 1 && emojiType == BOMBTYPE)){
+                    //reduce trials by one
+                    if(emojiType != BOMBTYPE)
+                        trialsleft--;
+                    addhearts();
+                    $("#emoji1").show();
+                    //choose random emoji
+                    chooseRandom();
+                    //random position
+                    $('#emoji1').css({
+                        'left': Math.round(550 * Math.random()),
+                        'top': -50
+                });
+                //generate random step
+                step= 1 + Math.round(5 * Math.random());//change steps
               }else{
-                  //game over
-                  playing=false;//we are ot playing any more
-                  $("#score").hide();
-                  $('#startreset').html('Start Game');
-                  $('#gameOver').show();
-                  $('#gameOver').html('<p>Game Over!</p><p>Your score is '+ score + '</p>');
-                  $('#trialsleft').hide();
-                  stopAction();//stops Action
-              }
+                //game over
+                // alert("1emojiType == BOMBTYPE"); // for debug
+                playing=false;//we are ot playing any more
+                $("#score").hide();
+                $('#startreset').html('Start Game');
+                $('#gameOver').show();
+                if(score < 100){
+                    score_emoji = "🙄"
+                    emoji_comment = "Are You SLEEPING?"
+                }
+                else if(score < 200){
+                    score_emoji = "🤣"
+                    emoji_comment = "Not Bad, Huh?"
+
+                }
+                else if(score < 500){
+                    score_emoji = "😋"
+                    emoji_comment = "Well Done!"
+
+                }
+                else {
+                    score_emoji = "😍"
+                    emoji_comment = "Legendary Emoji Ninja!"
+                }
+                $('#gameOver').html('<img src="images/GameOver.png" width="100%"><p>' + score_emoji +' '+ score + '<br/>' + emoji_comment + '</p>')
+                
+                $('#trialsleft').hide()
+
+                // End game
+                stopAction();              
+            }
           }
 
           // check if the score is overflow
           if (score >= MAXSCORE) {
             //game over
+            // alert("1emojiType == BOMBTYPE"); // for debug
             playing=false;//we are ot playing any more
             $("#score").hide();
             $('#startreset').html('Start Game');
             $('#gameOver').show();
-            $('#gameOver').html('<p>Game Over!</p><p>Your score is '+ score + '</p>');
-            $('#trialsleft').hide();
-            stopAction();//stops Action
+            if(score < 100){
+                score_emoji = "🙄"
+                emoji_comment = "Are You SLEEPING?"
+            }
+            else if(score < 200){
+                score_emoji = "🤣"
+                emoji_comment = "Not Bad, Huh?"
+
+            }
+            else if(score < 500){
+                score_emoji = "😋"
+                emoji_comment = "Well Done!"
+
+            }
+            else {
+                score_emoji = "😍"
+                emoji_comment = "Legendary Emoji Ninja!"
+            }
+            $('#gameOver').html('<img src="images/GameOver.png" width="100%"><p>' + score_emoji +' '+ score + '<br/>' + emoji_comment + '</p>')
+
+            $('#trialsleft').hide()
+
+            // End game
+            stopAction();
         }
       },10);
   }
