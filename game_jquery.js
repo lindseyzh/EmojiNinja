@@ -158,8 +158,8 @@ $(function(){
           'top': -50,
           'z-index': '2'
       });
-      //generate random step
-      step=1 + Math.round(5 * Math.random());//change steps
+      //generate random speed
+      step=1 + Math.round(5 * Math.random());//change step length to control speed
       //descend emojis down by 10ms
       action = setInterval(function(){
           //move emoji by one step
