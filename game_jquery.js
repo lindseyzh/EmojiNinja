@@ -9,7 +9,7 @@ var audio1 = new Audio("audio/knife1.mp3");
 var audio2 = new Audio("audio/knife2.mp3");
 var emojis = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'];//for emojis
 var emojiType;
-const MAXSCORE = 999999;
+const MAXSCORE = 9999999;
 const EMOJINUM = 16;
 var BOMBTYPE = 15;
 var emojiScore = [100, 100, 50, 50, 10, 10, 10, 10 ,10 ,10 ,10 ,10 ,10 ,10 ,10, 0] 
@@ -83,7 +83,7 @@ $(function(){
             $('#startreset').html('Start Game');
             $('#gameOver').show();
             if(score < 100){
-                score_emoji = "🙄"
+                score_emoji = "😅"
                 emoji_comment = "Are You SLEEPING?"
             }
             else if(score < 200){
@@ -122,17 +122,17 @@ $(function(){
 
     function showJuice(color) {
         
-        var juice = $('<div class="juice"></div>').css({
-            'background-color': '#ff0000',
-            
-            'background-image': color, // 设置背景图像
+        var juice = $('<img class="juice" src="./images/splash-yellow.png"></img>').css({
+            // 'background-color': '#ff0000',
+            // 'background': url(./images/splash-yellow.png),
+            // 'background-image': 'image/splash-yellow.png', // 设置背景图像
             'background-size': 'cover', // 以 cover 方式填充背景
             'position': 'absolute',
-            'left': $('#emoji1').offset().left,
-            'top': $('#emoji1').offset().top,
-            'width': '50px', // 汁液宽度
-            'height': '50px', // 汁液高度
-            'z-index': '1' // 确保汁液位于 emoji 下方
+            'left': $('#emoji1').offset().left + 20,
+            'top': $('#emoji1').offset().top + 20,
+            'width': '70px', // 汁液宽度
+            'height': '70px', // 汁液高度
+            'z-index': 1 // 确保汁液位于 emoji 下方
         });
     
         
@@ -140,10 +140,10 @@ $(function(){
     
         // juice逐渐消失
         setTimeout(function () {
-            juice.fadeOut(1000, function () {
+            juice.fadeOut(500, function () {
                $(this).remove(); 
             });
-        }, 1000); 
+        }, 500); 
     }
   //start action
   function startAction(){
@@ -155,7 +155,8 @@ $(function(){
       //random position
       $('#emoji1').css({
           'left': Math.round(550 * Math.random()),
-          'top': -50
+          'top': -50,
+          'z-index': '2'
       });
       //generate random step
       step=1 + Math.round(5 * Math.random());//change steps
@@ -256,8 +257,8 @@ $(function(){
  
   //choose random emojis
   function chooseRandom(){
-    //   emojiType = Math.round(15*Math.random());
-      emojiType = Math.round(2*Math.random()) + 13; // Modified to debug Bomb
+      emojiType = Math.round(15*Math.random());
+    //   emojiType = Math.round(2*Math.random()) + 13; // Modified to debug Bomb
       $('#emoji1').attr('src','images/' + emojis[emojiType]+'.png');
   }
 

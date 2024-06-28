@@ -51,7 +51,6 @@ html{
 }
 
 #emojicontainer{
-    background: url(./images/white_bg.png) ;
     background-size: cover;
     position: relative;
     width: 650px;
@@ -112,9 +111,9 @@ html{
     z-index: 1;
 }
 .life{
-    width: 30px;
+    width: 35px;
     /* height: 26px; */
-    padding-right: 5px;
+    padding-right: 0px;
 }
 
 .emoji {
@@ -130,16 +129,23 @@ html{
     margin: 0 auto;
     cursor: pointer;
     text-align: center;
-    background-color:#8d8315;
-    box-shadow: 0px 4px 0px 0px #5c5619;
+    background-color: black;
+    color:white;
+    box-shadow: 0px 4px 0px 0px gray;
     border-radius: 5px;
     transition: all .2s;
 }
 
-#startReset:active{
-    background-color: black;
+#startReset:hover{
+    background-color: #383838;
     top: 4px;
     color: white;
+}
+
+#startReset:active{
+    background-color: white;
+    top: 4px;
+    color: black;
 }
 
 #gameOver{
